@@ -36,7 +36,7 @@ int getdir (string dir, vector<string> &files);
 
 //INPUT: string file name
 //OUTPUT: number of words in file
-int cleanString(string file);
+void cleanString(string &word);
 
 //INPUT:
 //OUTPUT:
@@ -73,25 +73,24 @@ int main(int argc, char *argv[]) {
     int idx = 0; //index to keep track of what file
     while (idx < files.size()) {
         //clean file
-
         //-> while not end of file, infile << 6 word
         // maybe call getNwordsequence
         string word;
         ifstream current_file;
-        string file = dir + "/" + files[idx];
+        string file = dir + "/" + files[idx+2];
         current_file.open(file.c_str());
         vector<string> file_words;
-        while(current_file >> word){
-            for(unsigned int i = 0; i < word.size();i++){
-                if(word[i] <= 122 && word[i] >=97){
-                    word[i] = word[i] - 32;
-                }
-                else if(word[i] < 65 && word[i] > 90){
-                    word.erase(word.begin() + i);
-                    //word.erase(i);
-                }
+        while(current_file >> word) {
+            for (int j =0;j<6;j++) {
+                cleanString(word);
+                file_words.push_back(word);
+                current_file >> word;
+            }
+            for(int i = 0; i<file_words.size();i++){
+                cout << file_words[i] << endl;
             }
         }
+        cout << file_words[0] << file_words[1] << file_words[2] << endl;
         //-cleanString (str.erase(str.begin + i))
         //findKey()
         // put each file on hash table
@@ -136,8 +135,27 @@ int getdir (string dir, vector<string> &files) {
     return 0;
 }
 
-int cleanString(string file) {
-    return 0;
+void cleanString(string &word) {
+    for (string::iterator iter = word.begin(); iter != word.end(); iter++) {
+        if (*iter <= 122 && *iter >= 97) {
+            *iter = *iter - 32;
+        } else if (*iter < 65 || *iter > 90) {
+            word.erase(iter);
+
+        }
+    }
+    /*
+    for(unsigned int i = 0;i < word.size();i++){
+        if(word[i] <= 122 && word[i] >=97){
+            word[i] = word[i] - 32;
+        }
+        else if(word[i] < 65 || word[i] > 90){
+            word.erase(i,i);
+
+    }
+}
+ */
+
 }
 
 int getNWordSequence(queue<string> nWordSequence, string file, int n) {
