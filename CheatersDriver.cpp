@@ -79,6 +79,7 @@ int main(int argc, char *argv[]) {
         string word;
         ifstream current_file;
         string file = dir + "/" + files[idx];
+        current_file.open(file.c_str());
 
         //-cleanString (str.erase(str.begin + i))
         //findKey()
