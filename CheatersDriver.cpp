@@ -81,6 +81,17 @@ int main(int argc, char *argv[]) {
         string file = dir + "/" + files[idx];
         current_file.open(file.c_str());
         vector<string> file_words;
+        while(current_file >> word){
+            for(unsigned int i = 0; i < word.size();i++){
+                if(word[i] <= 122 && word[i] >=97){
+                    word[i] = word[i] - 32;
+                }
+                else if(word[i] < 65 && word[i] > 90){
+                    word.erase(word.begin() + i);
+                    //word.erase(i);
+                }
+            }
+        }
         //-cleanString (str.erase(str.begin + i))
         //findKey()
         // put each file on hash table
