@@ -80,7 +80,7 @@ int main(int argc, char *argv[]) {
         ifstream current_file;
         string file = dir + "/" + files[idx];
         current_file.open(file.c_str());
-
+        vector<string> file_words;
         //-cleanString (str.erase(str.begin + i))
         //findKey()
         // put each file on hash table
