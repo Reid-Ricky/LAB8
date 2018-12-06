@@ -40,7 +40,7 @@ bool HashTable::isEmpty(int index) {
 
 
 
-void HashTable::HashFunction(string key) {
+void HashTable::hashFunction(string key, int data) {
 
 }
 

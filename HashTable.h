@@ -43,7 +43,7 @@ class HashTable {
     bool isEmpty(int index);
 
     //determine index of hash table from key and insert
-    void HashFunction(string key);
+    void hashFunction(string key, int data);
 
     void insertData(int d);
 

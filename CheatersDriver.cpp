@@ -40,7 +40,7 @@ void cleanString(string &word);
 
 //INPUT:
 //OUTPUT:
-int getNWordSequence(queue<string> nWordSequence, string file, int n);
+string findKey(vector<string> v);
 
 //INPUT:
 //OUTPUT:
@@ -65,42 +65,32 @@ int main(int argc, char *argv[]) {
             files.erase(files.begin() + i);
             i--;
         }
-
-        //cout << files[i] << '\n';
     }
 
 
     //****MAIN LOOP FOR FILLING HASHMAP****
-    queue<string> nWordSequence; //store n word sequences
     HashTable hash;
     int idx = 0; //index to keep track of what file
+    vector<string> n_words;
     while (idx < files.size()) {
-        //clean file
-        //-> while not end of file, infile << 6 word
-        // maybe call getNwordsequence
         string word;
         ifstream current_file;
         string file = dir + "/" + files[idx];
         current_file.open(file.c_str());
-        vector<string> file_words;
+        n_words.clear();
         while(current_file >> word) {
-            for (int j =0;j<n;j++) {
+            //grab 6 words
+            while (n_words.size() <= n) {
                 cleanString(word);
-                file_words.push_back(word);
-                current_file >> word;
+                n_words.push_back(word);
             }
-            for(int i = 0; i<file_words.size();i++){
-                cout << file_words[i] << endl;
-            }
+            cout << findKey(n_words) << endl;
+            //concatenate and call hashFunction()
+            //hash.hashFunction(findKey(n_words), idx);
+
+            // delete first element in queue
+            n_words.erase(n_words.begin());
         }
-        //-cleanString (str.erase(str.begin + i))
-
-        // findKey()
-        // put each file on hash table
-        //while (getNWordSequence(files[idx], n) == 1) {
-
-        //}
-
         idx++;
     }
 
@@ -158,25 +148,16 @@ void cleanString(string &word) {
                 return;
             }
             word.erase(iter);
-
         }
     }
-    /*
-    for(unsigned int i = 0;i < word.size();i++){
-        if(word[i] <= 122 && word[i] >=97){
-            word[i] = word[i] - 32;
-        }
-        else if(word[i] < 65 || word[i] > 90){
-            word.erase(i,i);
+}
 
+string findKey(vector<string> v) {
+    string key = "";
+    for (int i = 0; i < v.size(); i++) {
+        key = key + v[i];
     }
-}
- */
-
-}
-
-int getNWordSequence(queue<string> nWordSequence, string file, int n) {
-    return 0;
+    return key;
 }
 
 void tableInit(int* table[], int max) {
