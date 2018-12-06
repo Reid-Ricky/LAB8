@@ -28,6 +28,31 @@ HashTable::HashTable() {
     }
 }
 
+bool HashTable::isEmpty(int index) {
+    /*
+    if () {
+        return true;
+    }
+    return false;
+     */
+    return true;
+}
+
+
+
 void HashTable::HashFunction(string key) {
 
+}
+
+void HashTable::insertData(int d) {
+
+}
+
+int HashTable::getData() {
+    return 1;
+
+}
+
+int HashTable::getSize() {
+    return SIZE;
 }

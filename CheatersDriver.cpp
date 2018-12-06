@@ -72,6 +72,7 @@ int main(int argc, char *argv[]) {
 
     //****MAIN LOOP FOR FILLING HASHMAP****
     queue<string> nWordSequence; //store n word sequences
+    HashTable hash;
     int idx = 0; //index to keep track of what file
     while (idx < files.size()) {
         //clean file
@@ -93,7 +94,8 @@ int main(int argc, char *argv[]) {
             }
         }
         //-cleanString (str.erase(str.begin + i))
-        //findKey()
+
+        // findKey()
         // put each file on hash table
         //while (getNWordSequence(files[idx], n) == 1) {
 
@@ -107,8 +109,15 @@ int main(int argc, char *argv[]) {
     tableInit(table, files.size()); //initializes table
 
     //iterate through hashmap
+    /*
+    int i = 0;
+    while (i < hash.getSize()) {
+        while (hash.isEmpty(i) == false) {
 
-
+        }
+        i++;
+    }
+    */
 
     //determine what files were cheating
     for (int i = 0; i < files.size(); i++) {
