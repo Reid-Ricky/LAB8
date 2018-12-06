@@ -1,7 +1,7 @@
 //FILE NAME: HashTable.h
 //
 //HashTable Header program
-//Reid Lindemann & Ricky Guzman 11/27/2018
+//Reid Lindemann & Ricky Guzman 12/06/2018
 //EE 312
 
 /* Student information for project:
@@ -23,12 +23,11 @@
 
 using namespace std;
 
-
 //HashTable class declaration
 class HashTable {
       
   private:
-    static const int SIZE = 1001; //MUST BE PRIME
+    static const int SIZE = 100001; //MUST BE PRIME
 
     struct HashNode {
         int data;
@@ -38,20 +37,26 @@ class HashTable {
     HashNode* table[SIZE];
  
   public:
+
     //Default constructor
     HashTable();
 
+    //checks to see if array at index is empty
     bool indexIsEmpty(int index);
 
-    //determine index of hash table from key and insert
+    //determines index of hash table from key and inserts
     void hashFunction(const string &key, int data);
 
+    //deletes the first node of array at index
     int deleteFirstNode(int index);
 
+    //returns the data of each node in the list of array at index
     vector<int> getDataOfIndex(int index);
 
+    //returns size of array
     int getSize();
 
+    //Destructor
     ~HashTable();
  };
 

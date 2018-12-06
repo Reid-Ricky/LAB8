@@ -1,7 +1,7 @@
 //FILE NAME: HashTable.cpp
 //
 //HashTable program
-//Reid Lindemann & Ricky Guzman 11/27/2018
+//Reid Lindemann & Ricky Guzman 12/06/2018
 //EE 312
 
 /* Student information for project:
@@ -22,13 +22,16 @@
 
 using namespace std;
 
+//Default Constructor
 HashTable::HashTable() {
     for (int i = 0; i < SIZE; i++) {
         table[i] = NULL;
     }
 }
 
-
+//INPUT: integer of index
+//OUTPUT: boolean of emptiness
+//Precondition: index is valid
 bool HashTable::indexIsEmpty(int index) {
     if (table[index] == NULL) {
         return true;
@@ -36,23 +39,27 @@ bool HashTable::indexIsEmpty(int index) {
     return false;
 }
 
-
+//INPUT: string concatenation, integer of data
+//OUTPUT: n/a
 void HashTable::hashFunction(const string &key, int data) {
     int unsigned long idx = 0;
     int unsigned long mult = 1;
-    for (int i = 0; i < key.size(); i+2) {
+    const int primeMultiplier = 11;
+    //skips every other element to determine index
+    for (int i = 0; i < key.size(); i+=2) {
         idx = idx + (((key[i]) * mult));
-        mult = mult*9;
+        mult = mult*primeMultiplier;
     }
     idx = idx % SIZE;
-    HashNode* ptr = new HashNode;
+    HashNode* ptr = new HashNode; //dynamic memory allocation
     ptr->data = data;
     ptr->next = table[idx];
     table[idx] = ptr;
 }
 
-//return data after delete
-//-1 is empty, data is positive number
+//INPUT: intger of index
+//OUTPUT: integer of deleted data (-1 if empty, positive int is data)
+//Precondition: index is valid
 int HashTable::deleteFirstNode(int index) {
     int num;
     if (table[index] == NULL) {
@@ -61,12 +68,14 @@ int HashTable::deleteFirstNode(int index) {
         HashNode* buff = table[index];
         num = table[index]->data;
         table[index] = table[index]->next;
-        delete buff;
+        delete buff; //delete dynamic memory
     }
     return num;
 }
 
-
+//INPUT: integer of index
+//OUTPUT: vector of data of each node in the list of array at index
+//Precondition: index is valid
 vector<int> HashTable::getDataOfIndex(int index) {
     vector<int> v;
     HashNode* ptr = table[index];
@@ -77,12 +86,13 @@ vector<int> HashTable::getDataOfIndex(int index) {
     return v;
 }
 
-
+//INPUT: n/a
+//OUTPUT: integer of size
 int HashTable::getSize() {
     return SIZE;
 }
 
-
+//Destructor
 HashTable::~HashTable() {
     for (int i = 0; i < SIZE; i++) {
         while (deleteFirstNode(i) != -1) {}
