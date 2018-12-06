@@ -18,6 +18,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <sys/types.h>
 #include <dirent.h>
@@ -54,14 +55,14 @@ void outputFiles(vector<string> strings, vector<int> numbers);
 
 int main(int argc, char *argv[]) {
     //LINUX COMMANDS
-    //string dir(argv[1]);
-    //int n = atoi(argv[2]);
-    //int limit = atoi(argv[3]);
+    string dir(argv[1]);
+    int n = atoi(argv[2]);
+    int threshold = atoi(argv[3]);
 
     //CLION COMMANDS
-    string dir = "sm_doc_set";
-    int n = 6;
-    int threshold = 200;
+    //string dir = "sm_doc_set";
+    //int n = 6;
+    //int threshold = 200;
 
     //OPEN DIRECTORY
     vector<string> files;
@@ -156,8 +157,12 @@ int main(int argc, char *argv[]) {
             if (table[i][j] > threshold) {
                 collisions.push_back(table[i][j]);
                 //output that will appear on screen
-                string str = to_string(table[i][j]) + ": " + files[i] + ", " + files[j] + "\n";
-                output.push_back(str);
+                stringstream str;
+		        string str1;
+		        str << table[i][j];
+		        str >> str1;
+		        str1 =  str1 + ": " + files[i] + ", " + files[j] + "\n";
+		        output.push_back(str1);
             }
         }
     }
