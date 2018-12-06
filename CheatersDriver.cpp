@@ -67,7 +67,6 @@ int main(int argc, char *argv[]) {
         }
     }
 
-
     //****MAIN LOOP FOR FILLING HASHMAP****
     HashTable hash;
     int idx = 0; //index to keep track of what file
@@ -78,11 +77,14 @@ int main(int argc, char *argv[]) {
         string file = dir + "/" + files[idx];
         current_file.open(file.c_str());
         n_words.clear();
-        while(current_file >> word) {
+        while(current_file >> word ) {
             //grab 6 words
             while (n_words.size() <= n) {
                 cleanString(word);
                 n_words.push_back(word);
+                if (n_words.size() <= n) {
+                    current_file >> word;
+                }
             }
             cout << findKey(n_words) << endl;
             //concatenate and call hashFunction()
@@ -91,6 +93,7 @@ int main(int argc, char *argv[]) {
             // delete first element in queue
             n_words.erase(n_words.begin());
         }
+
         idx++;
     }
 
@@ -137,17 +140,20 @@ int getdir (string dir, vector<string> &files) {
 
 void cleanString(string &word) {
     for (string::iterator iter = word.begin(); iter != word.end(); iter++) {
+        //lower case -> capital
         if (*iter <= 122 && *iter >= 97) {
             *iter = *iter - 32;
         }
-        if(*iter >= 48 && *iter <= 57){
-
-        }else if (*iter < 65 || *iter > 90) {
-            if(iter +1  == word.end()){
+        //numbers
+        if (*iter >= 48 && *iter <= 57) {
+            //numbers do nothing!
+        } else if (*iter < 65 || *iter > 90) {
+            if (iter + 1  == word.end()){
                 word.erase(iter);
                 return;
             }
             word.erase(iter);
+            iter--;
         }
     }
 }
