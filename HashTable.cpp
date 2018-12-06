@@ -41,9 +41,10 @@ void HashTable::hashFunction(const string &key, int data) {
     int unsigned long idx = 0;
     int unsigned long mult = 1;
     for (int i = 0; i < key.size(); i+2) {
-        idx = idx + (((key[i]) * mult) % SIZE);
+        idx = idx + (((key[i]) * mult));
         mult = mult*9;
     }
+    idx = idx % SIZE;
     HashNode* ptr = new HashNode;
     ptr->data = data;
     ptr->next = table[idx];
