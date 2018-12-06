@@ -19,6 +19,7 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -40,17 +41,18 @@ class HashTable {
     //Default constructor
     HashTable();
 
-    bool isEmpty(int index);
+    bool indexIsEmpty(int index);
 
     //determine index of hash table from key and insert
-    void hashFunction(string key, int data);
+    void hashFunction(const string &key, int data);
 
-    void insertData(int d);
+    int deleteFirstNode(int index);
 
-    int getData();
+    vector<int> getDataOfIndex(int index);
 
     int getSize();
 
+    ~HashTable();
  };
 
 

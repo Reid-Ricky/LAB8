@@ -86,37 +86,43 @@ int main(int argc, char *argv[]) {
                     current_file >> word;
                 }
             }
-            cout << findKey(n_words) << endl;
+            //USE FOR DEBUGGING: cout << findKey(n_words) << endl;
             //concatenate and call hashFunction()
-            //hash.hashFunction(findKey(n_words), idx);
+            hash.hashFunction(findKey(n_words), idx);
 
             // delete first element in queue
             n_words.erase(n_words.begin());
         }
-
         idx++;
     }
 
-    //LOOP FOR MOVING HASHMAP TO 2D-ARRAY
+    //****MAIN LOOP FOR MOVING HASHMAP TO 2D-ARRAY****
     int* table[files.size()]; //stores collisions between files
     tableInit(table, files.size()); //initializes table
-
-    //iterate through hashmap
-    /*
-    int i = 0;
-    while (i < hash.getSize()) {
-        while (hash.isEmpty(i) == false) {
-
+    int hashIter = 0;
+    int fileNum = 0;
+    vector<int> pairs;
+    while (hashIter < hash.getSize()) {
+        while (!(hash.indexIsEmpty(hashIter))) {
+            //store and delete 1st node
+            fileNum = hash.deleteFirstNode(hashIter);
+            if (fileNum != -1) {
+                pairs.clear();
+                //add each other file to 2D array
+                pairs = hash.getDataOfIndex(hashIter);
+                for (int i = 0; i < pairs.size(); i++) {
+                    table[fileNum][pairs[i]] += 1;
+                }
+            }
         }
-        i++;
+        hashIter++;
     }
-    */
 
-    //determine what files were cheating
+    //determine what files were cheating and output to screen
     for (int i = 0; i < files.size(); i++) {
         for (int j = 0; j < files.size(); j++) {
             if (table[i][j] > threshold) {
-                //print to screen
+                cout << table[i][j] << ": " << files[i] << ", " << files[j] << endl;
             }
         }
     }
