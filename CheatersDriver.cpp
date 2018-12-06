@@ -63,7 +63,9 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < files.size(); i++) {
         if (files[i] == ".." || files[i] == ".") {
             files.erase(files.begin() + i);
+            i--;
         }
+
         //cout << files[i] << '\n';
     }
 
@@ -77,11 +79,11 @@ int main(int argc, char *argv[]) {
         // maybe call getNwordsequence
         string word;
         ifstream current_file;
-        string file = dir + "/" + files[idx+2];
+        string file = dir + "/" + files[idx];
         current_file.open(file.c_str());
         vector<string> file_words;
         while(current_file >> word) {
-            for (int j =0;j<6;j++) {
+            for (int j =0;j<n;j++) {
                 cleanString(word);
                 file_words.push_back(word);
                 current_file >> word;
@@ -90,7 +92,6 @@ int main(int argc, char *argv[]) {
                 cout << file_words[i] << endl;
             }
         }
-        cout << file_words[0] << file_words[1] << file_words[2] << endl;
         //-cleanString (str.erase(str.begin + i))
         //findKey()
         // put each file on hash table
@@ -139,7 +140,14 @@ void cleanString(string &word) {
     for (string::iterator iter = word.begin(); iter != word.end(); iter++) {
         if (*iter <= 122 && *iter >= 97) {
             *iter = *iter - 32;
-        } else if (*iter < 65 || *iter > 90) {
+        }
+        if(*iter >= 48 && *iter <= 57){
+
+        }else if (*iter < 65 || *iter > 90) {
+            if(iter +1  == word.end()){
+                word.erase(iter);
+                return;
+            }
             word.erase(iter);
 
         }
