@@ -1,7 +1,3 @@
-//READ ME File
-
-
-
 Plagiarism Catcher-
 
    (1) Download and unzip the zipped file. Included in the zip file are 
